@@ -90,6 +90,12 @@ fn buildWasm(b: *Build, opts: BuildWasmOptions) !void {
     const emsdk_incl_path = dep_emsdk.path("upstream/emscripten/cache/sysroot/include");
     opts.dep_cimgui.artifact(opts.cimgui_clib_name).addSystemIncludePath(emsdk_incl_path);
 
+    demo.root_module.addCSourceFile(.{
+        .file = b.path("src/libjs.c"),
+        .flags = &.{}, // optional extra emcc flags
+    });
+    demo.addSystemIncludePath(emsdk_incl_path);
+
     // all C libraries need to depend on the sokol library, when building for
     // WASM this makes sure that the Emscripten SDK has been setup before
     // C compilation is attempted (since the sokol C library depends on the

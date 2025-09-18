@@ -89,6 +89,8 @@ export fn event(ev: [*c]const sapp.Event) void {
 }
 
 pub fn main() void {
+    jsLog("hello from zig");
+    dummy();
     sapp.run(.{
         .init_cb = init,
         .frame_cb = frame,
@@ -101,3 +103,7 @@ pub fn main() void {
         .logger = .{ .func = slog.func },
     });
 }
+
+extern fn jsLog(ptr: [*]const u8) void;
+
+extern fn dummy() void;
