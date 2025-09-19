@@ -1,3 +1,4 @@
+const js = @import("js.zig");
 const use_docking = @import("build_options").docking;
 const ig = if (use_docking) @import("cimgui_docking") else @import("cimgui");
 const sokol = @import("sokol");
@@ -89,7 +90,7 @@ export fn event(ev: [*c]const sapp.Event) void {
 }
 
 pub fn main() void {
-    jsLog("hello from zig");
+    js.log("hello from zig");
     dummy();
     sapp.run(.{
         .init_cb = init,
@@ -103,7 +104,5 @@ pub fn main() void {
         .logger = .{ .func = slog.func },
     });
 }
-
-extern fn jsLog(ptr: [*]const u8) void;
 
 extern fn dummy() void;
